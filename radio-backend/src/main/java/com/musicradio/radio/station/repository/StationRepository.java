@@ -60,4 +60,9 @@ public interface StationRepository extends JpaRepository<Station, Integer> {
      */
     @Query("SELECT s FROM Station s JOIN s.theme t WHERE s.slug = :stationSlug AND s.isActive = true AND t.isActive = true")
     Optional<Station> findPubliclyAvailableBySlug(@Param("stationSlug") String stationSlug);
+
+    /**
+     * Count stations matching active status for dashboard metrics.
+     */
+    long countByIsActive(boolean isActive);
 }

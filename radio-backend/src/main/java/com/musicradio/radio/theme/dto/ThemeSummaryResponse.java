@@ -7,8 +7,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.Instant;
+
 /**
- * Lightweight summary of a theme for list views.
+ * Lightweight summary of a theme for list views and administrative dashboard widgets.
  */
 @Getter
 @Setter
@@ -24,6 +26,8 @@ public class ThemeSummaryResponse {
     private String thumbnailImage;
     private Integer sortOrder;
     private Boolean isActive;
+    private int stationCount;
+    private Instant updatedAt;
 
     public static ThemeSummaryResponse fromEntity(Theme theme) {
         if (theme == null) {
@@ -37,7 +41,8 @@ public class ThemeSummaryResponse {
                 .thumbnailImage(theme.getThumbnailImage())
                 .sortOrder(theme.getSortOrder())
                 .isActive(theme.getIsActive())
+                .stationCount(theme.getStations() != null ? theme.getStations().size() : 0)
+                .updatedAt(theme.getUpdatedAt())
                 .build();
     }
 }
-
