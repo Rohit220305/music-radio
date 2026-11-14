@@ -45,4 +45,15 @@ public interface ThemeRepository extends JpaRepository<Theme, Integer> {
     @EntityGraph(attributePaths = {"stations"})
     @Query("SELECT DISTINCT t FROM Theme t ORDER BY t.sortOrder ASC, t.id ASC")
     List<Theme> findAllWithStations();
+
+    /**
+     * Count themes matching active status for dashboard metrics.
+     */
+    long countByIsActive(boolean isActive);
+
+    /**
+     * Retrieve top 5 most recently updated themes with eagerly loaded stations for dashboard overview.
+     */
+    @EntityGraph(attributePaths = {"stations"})
+    List<Theme> findTop5ByOrderByUpdatedAtDescIdDesc();
 }

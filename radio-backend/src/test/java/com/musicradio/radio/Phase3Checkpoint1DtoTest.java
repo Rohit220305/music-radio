@@ -1,6 +1,6 @@
 package com.musicradio.radio;
 
-import com.musicradio.radio.common.config.InterimSecurityConfig;
+import com.musicradio.radio.common.config.SecurityConfig;
 import com.musicradio.radio.common.dto.StatusUpdateRequest;
 import com.musicradio.radio.station.dto.UpdateStationRequest;
 import com.musicradio.radio.theme.dto.UpdateThemeRequest;
@@ -106,12 +106,10 @@ class Phase3Checkpoint1DtoTest {
     }
 
     @Test
-    @DisplayName("InterimSecurityConfig should be annotated with @Profile({\"dev\", \"test\"})")
-    void testInterimSecurityConfigProfileAnnotation() {
-        Profile profileAnnotation = InterimSecurityConfig.class.getAnnotation(Profile.class);
-        assertNotNull(profileAnnotation, "InterimSecurityConfig must have @Profile annotation");
-        String[] profiles = profileAnnotation.value();
-        assertArrayEquals(new String[]{"dev", "test"}, profiles);
+    @DisplayName("SecurityConfig should not have @Profile annotation so it is active in all profiles")
+    void testSecurityConfigProfileAnnotation() {
+        Profile profileAnnotation = SecurityConfig.class.getAnnotation(Profile.class);
+        assertNull(profileAnnotation, "SecurityConfig should not be restricted by @Profile");
     }
 }
 
